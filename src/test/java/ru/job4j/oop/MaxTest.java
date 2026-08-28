@@ -25,6 +25,4 @@ class MaxTest {
         int result = maximum.max(10, 30, 40, 154);
         assertThat(result).isEqualTo(154);
     }
-
-
 }
