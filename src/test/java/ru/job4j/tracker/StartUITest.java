@@ -40,4 +40,32 @@ class StartUITest {
         expected = new Item("Fix Bug");
         assertThat(created.getName()).isEqualTo(expected.getName());
     }
+
+    @Test
+    void whenReplaceItemThree() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("new item");
+        tracker.add(item);
+        String[] answers = {
+                String.valueOf(item.getId()), // id сохраненной заявки в объект tracker.
+                "edited item"
+        };
+        StartUI.replaceItem(new MockInput(answers), tracker);
+        Item edited = tracker.findById(item.getId());
+        assertThat(edited.getName()).isEqualTo("edited item");
+    }
+
+    @Test
+    void whenDeleteItemTestIsSuccessful() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("item to delete");
+        tracker.add(item);
+        String[] answers = {
+                String.valueOf(item.getId())
+        };
+        Input input = new MockInput(answers);
+        StartUI.deleteItem(input, tracker);
+        Item deleted = tracker.findById(item.getId());
+        assertThat(deleted).isNull();
+    }
 }
